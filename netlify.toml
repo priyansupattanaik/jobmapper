@@ -1,0 +1,22 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[context.production.environment]
+  NEXT_PUBLIC_THUNDERFOREST_KEY = "${NEXT_PUBLIC_THUNDERFOREST_KEY}"
+  NEXT_PUBLIC_GITHUB_OWNER = "${NEXT_PUBLIC_GITHUB_OWNER}"
+  NEXT_PUBLIC_GITHUB_REPO = "${NEXT_PUBLIC_GITHUB_REPO}"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
